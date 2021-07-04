@@ -43,7 +43,7 @@ function buildBar(sampleVals, IDs, labels, userInput) {
     text: labels,
     orientation: "h",
     marker: {
-      color: 'rgb(215,180,243)'
+      color: "rgb(215,180,243)",
     },
     type: "bar",
   };
@@ -53,11 +53,11 @@ function buildBar(sampleVals, IDs, labels, userInput) {
   var layout = {
     title: `Top 10 Bacteria Cultures for ${userInput}`,
     xaxis: {
-      title: "Number of Samples"
+      title: "Number of Samples",
     },
     yaxis: {
       autorange: "reversed",
-      title: "ID"
+      title: "ID",
     },
   };
 
@@ -65,20 +65,16 @@ function buildBar(sampleVals, IDs, labels, userInput) {
 }
 
 //Function to build bubble chart with bacteria cultures per sample
+//Reference: https://plotly.com/javascript/bubble-charts/
 function buildBubble(sampleVals, IDs, labels, userInput) {
-  //Construct bubble chart
-  //Reference: https://plotly.com/javascript/bubble-charts/
+  var idColors = [];
 
-  var idColors = []; 
-  
-  IDs.forEach(val => {
-    
-    console.log(val - 500);
+  IDs.forEach((val) => {
+    // console.log(val - 500);
     idColors.push(val - 500);
-
   });
 
-  console.log(idColors);
+  // console.log(idColors);
 
   var trace = {
     x: IDs,
@@ -86,7 +82,7 @@ function buildBubble(sampleVals, IDs, labels, userInput) {
     mode: "markers",
     marker: {
       size: sampleVals,
-      color: idColors
+      color: idColors,
     },
     text: labels,
   };
@@ -96,14 +92,57 @@ function buildBubble(sampleVals, IDs, labels, userInput) {
   var layout = {
     title: "Bacteria Cultures per Sample",
     xaxis: {
-     title: "OTU ID" 
+      title: "OTU ID",
     },
     yaxis: {
-      title: "Number of Samples"
+      title: "Number of Samples",
     },
   };
 
   Plotly.newPlot("bubble", data, layout);
+}
+
+//Function to build belly button washing frequency gauge for each ID
+//Reference: https://plotly.com/javascript/gauge-charts/
+//Reference: https://plotly.com/javascript/tick-formatting/
+//Reference: https://github.com/plotly/plotly.js/issues/2929
+
+function buildGuage(bbWashFreq) {
+  console.log(bbWashFreq);
+
+  var trace = {
+    domain: { x: [0, 1], y: [0, 1] },
+    value: bbWashFreq,
+    title: { text: "Belly Button Washing Frequency"},
+    type: "indicator",
+    mode: "gauge+number",
+    gauge: {
+      axis: {
+        range: [null, 9],
+        tickwidth: 3,
+        tickcolor: "black",
+        tick0: 0,
+        dtick: 1,
+      },
+      steps: [{range: [0,9],
+              color: 'Teal'}],
+      threshold: {
+        line: { color: "purple", width: 8 },
+        thickness: 0.75,
+        value: bbWashFreq,
+      },
+    },
+  };
+
+  var data = [trace];
+
+  var layout = {
+    width: 600,
+    height: 500,
+    margin: { t: 0, b: 0 },
+  };
+
+  Plotly.newPlot("gauge", data, layout);
 }
 
 //Function to fetch JSON data
@@ -138,9 +177,9 @@ function buildPage(subjectID) {
       sampleValues.push(samples[userInputIndex].sample_values[i]);
     }
 
-    console.log(samples[userInputIndex].sample_values);
-    console.log(samples[userInputIndex].otu_ids);
-    console.log(samples[userInputIndex].otu_labels);
+    // console.log(samples[userInputIndex].sample_values);
+    // console.log(samples[userInputIndex].otu_ids);
+    // console.log(samples[userInputIndex].otu_labels);
 
     //Call functions to build bar and bubble charts
     buildBar(sampleValues, barotuIDs, otuLabels, subjectID);
@@ -150,6 +189,7 @@ function buildPage(subjectID) {
       samples[userInputIndex].otu_labels,
       subjectID
     );
+    buildGuage(metadata[userInputIndex].wfreq);
 
     //Call function to get demographic table data and populate the table in HTML according to the selected Subject ID
     extractDemographics(metadata[userInputIndex]);

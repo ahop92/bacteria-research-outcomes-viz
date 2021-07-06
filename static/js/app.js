@@ -19,14 +19,21 @@ function checkID(name) {
   return name === d3.select("#selDataset").property("value");
 }
 //Function to populate the demographic info section of page
+//Reference: https://stackoverflow.com/questions/44777795/disabling-an-option-in-a-dropdown-menu-d3
 function populatePageIDs(idArray, userInput) {
   var idMenu = d3.select("#selDataset");
   idMenu.html("");
-  idMenu.append("option").text(userInput);
+  idMenu
+    .append("option")
+    .attr("id", "selectedOption")
+    .attr("disabled", true)
+    .text(userInput);
 
   idArray.forEach((row) => {
-    idMenu.append("option").text(row);
-    // console.log(row);
+    if (row != userInput) {
+      idMenu.append("option").text(row);
+      // console.log(row);
+    }
   });
 }
 
@@ -113,7 +120,7 @@ function buildGuage(bbWashFreq) {
   var trace = {
     domain: { x: [0, 1], y: [0, 1] },
     value: bbWashFreq,
-    title: { text: "Belly Button Washing Frequency"},
+    title: { text: "Belly Button Washing Frequency" },
     type: "indicator",
     mode: "gauge+number",
     gauge: {
@@ -124,8 +131,7 @@ function buildGuage(bbWashFreq) {
         tick0: 0,
         dtick: 1,
       },
-      steps: [{range: [0,9],
-              color: 'Teal'}],
+      steps: [{ range: [0, 9], color: "Teal" }],
       threshold: {
         line: { color: "purple", width: 8 },
         thickness: 0.75,

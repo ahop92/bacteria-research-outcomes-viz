@@ -1,4 +1,4 @@
-# interactive-visualizations-challenge
+# Bacteria Research Outcomes Visualizations
 
 ## Background 
 

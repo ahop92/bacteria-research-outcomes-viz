@@ -10,7 +10,7 @@ The overall page functionality can be broken down into two parts:
 
 1. index.html - homepage where the user can view all of the data visualizations that characterize the bacteria pool per subject ID in the study. For each ID, the following graph type, is shown: Top 10 Bacteria Cultures for Subject ID - Bar Chart, Belly Button Washing Frequency - Gauge Chart, Bacteria Cultures Per Sample - Bubble Chart, Demographic Information - General Table.
 
-![image](bacteria-research-outcomes-viz/images/dashboard.PNG?raw=true)
+![image](https://raw.github.com/ahop92/bacteria-research-outcomes-viz/main/images/dashboard.PNG)
 
 2. app.js - javascript containing all of the necessary functions for the page to respond to the user input mentioned above. The app is broken down in the following functions:
 

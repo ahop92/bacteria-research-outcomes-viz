@@ -153,7 +153,7 @@ function buildGuage(bbWashFreq) {
 
 //Function to fetch JSON data
 //Reference: https://www.w3schools.com/jsref/jsref_findindex.asp
-var url = "../../../interactive-visualizations-challenge/data/samples.json";
+var url = "../../data/samples.json";
 function buildPage(subjectID) {
   d3.json(url).then(function (data) {
     console.log(data);

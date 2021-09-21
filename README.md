@@ -18,11 +18,16 @@ The app functionality can be broken down into the following categories:
 
 1. buildPage() - Function that is called to compile every chart and deploy it to index.html. Additionally, this function makes the d3.json function call to extract the data from the samples.json file for use in all of the other functions. Important note: the initial deployment of index.html defaults to subject ID 940. 
 
+![image](https://raw.github.com/ahop92/bacteria-research-outcomes-viz/main/images/d3JsonCall.PNG)
+
 2. extractDemographics() - Function to pull the metadata about the subject ID and populate it to the demographic window on index.html. 
 
 3. checkID() - function called to check user selected subject ID against the present list of IDs storied in samples.JSON. This function acts as a conditional check to identify the index of the user selected ID within samples.json. 
 
 4. populatePageIDs() - function to pull the list of subject IDs from samples.json and populate the user dropdown menu with the numerical options. 
+
+![image](https://raw.github.com/ahop92/bacteria-research-outcomes-viz/main/images/d3PopulateID.PNG)
+![image](https://raw.github.com/ahop92/bacteria-research-outcomes-viz/main/images/HTMLDropDown.PNG)
 
 5. buildBar() - function to build bar chart with top ten samples of bacteria identified in study for a given subject ID.
 
